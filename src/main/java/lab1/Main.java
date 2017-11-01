@@ -7,10 +7,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 100; i++) {
             test();
         }
         System.out.println("SUCCESS");
+
+
+        //could do that by while(true){ do a check, sleep, do a check again.....}
     }
 
     private static void test() throws InterruptedException {
@@ -26,7 +29,7 @@ public class Main {
             thread.start();
         }
 
-        synchronized (BankTransactionManager.class) {
+//        synchronized (BankTransactionManager.class) {
             for (int i = 0; i < 10; i++) {
                 runningThreads.get(i).join();
                 runningThreads.remove(i);
@@ -36,7 +39,7 @@ public class Main {
                 System.out.println("ERROR");
             }
             System.out.println("intermediate check " + intermediatesSum);
-        }
+//        }
 
         for (Thread runningThread : runningThreads) {
             runningThread.join();
